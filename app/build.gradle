@@ -1,0 +1,40 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "28.0.3"
+
+    defaultConfig {
+        applicationId "com.qjqadams.app_0001_leddemo"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true   //Enabling multidex support
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g";
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']  //表示我们的so文件放在libs目录下面
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:design:23.4.0'
+    provided project(':classes')
+    compile 'com.android.support:multidex:1.0.0'
+}
